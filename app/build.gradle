@@ -76,4 +76,7 @@ dependencies {
     androidTestCompile "com.crittercism.dexmaker:dexmaker-mockito:${dexmakerVersion}"
     androidTestCompile "com.crittercism.dexmaker:dexmaker-dx:${dexmakerVersion}"
     androidTestCompile 'com.jayway.awaitility:awaitility:1.7.+'
+
+    // LIBRARY
+    compile project(":${djLibrayUrl}")
 }
