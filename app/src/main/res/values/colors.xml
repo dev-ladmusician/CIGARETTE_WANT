@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#0F8DD2</color>
+    <color name="colorAccent">#01579B</color>
+
+    <color name="WHITE">#FFFFFF</color>
+    <color name="TRANSPARENT">#00000000</color>
+
+    <!-- IDENTITY -->
+    <color name="IDENTITY_BLUE">#0F8DD2</color>
+    <color name="IDENTITY_BLUE_PRESSED">#01579B</color>
+    <color name="IDENTITY_BLUE_LIGHT">#4AA9F3</color>
+    <color name="IDENTITY_BLUE_TRANSPARENT">#334AA9F3</color>
+
+    <color name="GREY_DEFAULT">#E6E6E6</color>
+
+    <color name="BG_BASE">#F8F8F8</color>
+    <color name="BG_EXTRA">#F0EFF5</color>
+    <color name="TXT_EXTRA">#8C8B91</color>
 </resources>
