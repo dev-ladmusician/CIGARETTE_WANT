@@ -4,4 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- ALARM ITEM -->
+    <dimen name="item_alarm_height">80dp</dimen>
+    <dimen name="item_alarm_side_padding">15dp</dimen>
 </resources>
