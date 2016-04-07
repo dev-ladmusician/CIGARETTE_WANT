@@ -2,6 +2,7 @@ package com.gaincigarretprice.idiot.sun.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -23,6 +24,7 @@ import butterknife.OnClick;
 public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     private static final String TAG = "ACTIVITY_MAIN";
     private Context mContext = null;
+    private AlarmAdapter mAdapter;
 
     @Bind(R.id.main_alarm_container)
     RecyclerView mainAlarmContainer;
@@ -39,9 +41,9 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
         ButterKnife.bind(this);
 
         mContext = getApplicationContext();
-        AlarmAdapter adapter = new AlarmAdapter(mContext);
+        mAdapter = new AlarmAdapter(mContext);
         DaggerMainComponent.builder()
-                .mainModule(new MainModule(this, adapter))
+                .mainModule(new MainModule(this, mAdapter))
                 .build()
                 .inject(this);
 
@@ -50,11 +52,19 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         ButterKnife.unbind(this);
+        super.onDestroy();
     }
 
     public void init() {
+        mainAlarmContainer.setAdapter(mAdapter);
+        mainAlarmContainer.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
+
+        mAlarmAdapterDataView.setOnItemClickListener((adapter, position) -> {
+            mAlarmPresenter.onItemClick(position);
+        });
+
+        mAlarmPresenter.loadItems();
     }
 
     @Override

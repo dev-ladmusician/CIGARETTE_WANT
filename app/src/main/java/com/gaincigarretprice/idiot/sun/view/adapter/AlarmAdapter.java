@@ -2,16 +2,20 @@ package com.gaincigarretprice.idiot.sun.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.gaincigarretprice.idiot.sun.model.data.Alarm;
+import com.gaincigarretprice.idiot.sun.R;
+import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemClickListener;
 import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemStateChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -20,7 +24,7 @@ import butterknife.ButterKnife;
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>
     implements AlarmAdapterDataModel, AlarmAdapterDataView {
     private Context mContext = null;
-    private List<Alarm> mAlarmList = null;
+    private List<AlarmDTO> mAlarmList = null;
     private OnItemStateChangeListener mItemStateChangeListener = null;
     private OnItemClickListener mItemClickListener = null;
 
@@ -31,12 +35,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm, parent, false);
+        return new AlarmViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(AlarmViewHolder holder, int position) {
-
+        holder.bindView(position);
     }
 
     @Override
@@ -45,7 +50,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     @Override
-    public void addItem(Alarm item) {
+    public void addItem(AlarmDTO item) {
         mAlarmList.add(item);
     }
 
@@ -60,7 +65,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     @Override
-    public Alarm getItem(int position) {
+    public AlarmDTO getItem(int position) {
         return mAlarmList.get(position);
     }
 
@@ -75,7 +80,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     @Override
-    public void setOnItemClickListener() {
+    public void setOnItemClickListener(OnItemClickListener onRecyclerItemClickListener) {
 
     }
 
@@ -88,9 +93,23 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     class AlarmViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.item_alarm_time)
+        TextView mTxtTime;
+
         public AlarmViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public void bindView(int position) {
+            mTxtTime.setText(getFullTime(position));
+        }
+
+        String getFullTime(int position) {
+            return new StringBuilder(
+                    mAlarmList.get(position).getHour() + "")
+                    .append(" : ")
+                    .append(mAlarmList.get(position).getMin()).toString();
         }
     }
 }
