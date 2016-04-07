@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -42,6 +43,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     packagingOptions.excludes = [
             'META-INF/DEPENDENCIES',
             'META-INF/LICENSE',
@@ -74,6 +80,10 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+
+    // RxAndroid, RxJava
+    compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+    compile "io.reactivex:rxjava:${rxJavaVersion}"
 
     androidTestCompile "com.android.support.test:runner:${testRunnerVersion}"
     androidTestCompile "com.android.support.test:rules:${testRunnerVersion}"
