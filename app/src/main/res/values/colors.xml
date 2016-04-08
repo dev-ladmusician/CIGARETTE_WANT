@@ -18,6 +18,5 @@
     <color name="BG_BASE">#F8F8F8</color>
     <color name="BG_EXTRA">#F0EFF5</color>
     <color name="TXT_EXTRA">#8C8B91</color>
-
-    <color name="DEVIDER">#0f0</color>
+    <color name="DEVIDER">#E6E6E6</color>
 </resources>
