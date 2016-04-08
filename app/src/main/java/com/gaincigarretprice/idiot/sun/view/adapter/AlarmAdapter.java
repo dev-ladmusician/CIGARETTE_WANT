@@ -1,6 +1,5 @@
 package com.gaincigarretprice.idiot.sun.view.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,8 @@ import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemStateChangeListener
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -22,15 +23,13 @@ import butterknife.ButterKnife;
  * Created by ladmusician on 4/5/16.
  */
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>
-    implements AlarmAdapterDataModel, AlarmAdapterDataView {
-    private Context mContext = null;
-    private List<AlarmDTO> mAlarmList = null;
+        implements AlarmAdapterDataModel, AlarmAdapterDataView {
+    private List<AlarmDTO> mAlarmList = new ArrayList<>();
     private OnItemStateChangeListener mItemStateChangeListener = null;
     private OnItemClickListener mItemClickListener = null;
 
-    public AlarmAdapter(Context mContext) {
-        this.mContext = mContext;
-        this.mAlarmList = new ArrayList<>();
+    @Inject
+    public AlarmAdapter() {
     }
 
     @Override

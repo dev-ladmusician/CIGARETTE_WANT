@@ -1,6 +1,5 @@
 package com.gaincigarretprice.idiot.sun.view.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,6 @@ import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapterDataView;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
-import com.gaincigarretprice.idiot.sun.view.dagger.DaggerMainComponent;
 import com.gaincigarretprice.idiot.sun.view.dagger.MainModule;
 
 import javax.inject.Inject;
@@ -23,8 +21,6 @@ import butterknife.OnClick;
 
 public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     private static final String TAG = "ACTIVITY_MAIN";
-    private Context mContext = null;
-    private AlarmAdapter mAdapter;
 
     @Bind(R.id.main_alarm_container)
     RecyclerView mainAlarmContainer;
@@ -34,16 +30,17 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     @Inject
     AlarmPresenter mAlarmPresenter;
 
+    @Inject
+    AlarmAdapter mAlarmAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mContext = getApplicationContext();
-        mAdapter = new AlarmAdapter(mContext);
         DaggerMainComponent.builder()
-                .mainModule(new MainModule(this, mAdapter))
+                .mainModule(new MainModule(this))
                 .build()
                 .inject(this);
 
@@ -57,7 +54,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     }
 
     public void init() {
-        mainAlarmContainer.setAdapter(mAdapter);
+        mainAlarmContainer.setAdapter(mAlarmAdapter);
         mainAlarmContainer.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
 
         mAlarmAdapterDataView.setOnItemClickListener((adapter, position) -> {

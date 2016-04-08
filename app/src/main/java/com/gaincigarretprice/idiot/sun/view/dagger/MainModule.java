@@ -13,20 +13,18 @@ import dagger.Provides;
 @Module(includes = NetworkModule.class)
 public class MainModule {
     private AlarmPresenter.View mView;
-    private AlarmAdapter mAdapter;
 
-    public MainModule(AlarmPresenter.View mView, AlarmAdapter mAdapter) {
+    public MainModule(AlarmPresenter.View mView) {
         this.mView = mView;
-        this.mAdapter = mAdapter;
     }
 
     @Provides
-    AlarmAdapterDataModel provideAlarmAdapterDataModel() {
+    AlarmAdapterDataModel provideAlarmAdapterDataModel(AlarmAdapterDataModel mAdapter) {
         return mAdapter;
     }
 
     @Provides
-    AlarmAdapterDataView provideAlarmAdapterDataView() {
+    AlarmAdapterDataView provideAlarmAdapterDataView(AlarmAdapterDataView mAdapter) {
         return mAdapter;
     }
 
@@ -41,5 +39,5 @@ public class MainModule {
     }
 
     @Provides
-    AlarmAdapter provideAlarmAdapter() { return mAdapter; }
+    AlarmAdapter provideAlarmAdapter(AlarmAdapter mAdapter) { return mAdapter; }
 }
