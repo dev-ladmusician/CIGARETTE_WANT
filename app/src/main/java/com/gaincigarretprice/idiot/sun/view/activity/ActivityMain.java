@@ -9,7 +9,7 @@ import android.view.View;
 import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.model.data.Alarm;
 import com.gaincigarretprice.idiot.sun.presenter.AlarmPresenter;
-import com.gaincigarretprice.idiot.sun.util.LogUtil;
+import com.gaincigarretprice.idiot.sun.util.Constant;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapterDataView;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
@@ -85,7 +85,8 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-                LogUtil.print(TAG, "CLICK FAB");
+                Intent intent = new Intent(this, ActivityAddAlarm.class);
+                startActivityForResult(intent, Constant.ADD_ALARM_REQUEST_CODE);
                 break;
             default:
                 break;

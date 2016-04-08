@@ -12,6 +12,11 @@
     <string name="KEY_DEVICE_WIDTH">panelWidth</string>
     <string name="KEY_DEVICE_HEIGHT">panelHeight</string>
 
+    <string name="KEY_ADD_ALARM_REPEAT">KEY_REPEAT</string>
+    <string name="KEY_ALARM_RINGTONE">KEY_RINGTONE</string>
+    <string name="KEY_BASIC_RINGTONE">Basic Ringtone</string>
+    <string name="KEY_ALARM_ID">alarm_id</string>
+
     <!-- ADD ALARM -->
     <string name="ADD_ALARM_TITLE">알람등록</string>
     <string name="ADD_ALARM_SOUND_TITLE">Ringtone</string>
