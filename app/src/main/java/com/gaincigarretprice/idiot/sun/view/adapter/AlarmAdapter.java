@@ -14,8 +14,6 @@ import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemStateChangeListener
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -28,7 +26,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     private OnItemStateChangeListener mItemStateChangeListener = null;
     private OnItemClickListener mItemClickListener = null;
 
-    @Inject
     public AlarmAdapter() {
     }
 

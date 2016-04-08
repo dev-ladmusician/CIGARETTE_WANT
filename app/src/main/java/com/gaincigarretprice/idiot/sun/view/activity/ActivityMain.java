@@ -11,6 +11,7 @@ import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapterDataView;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
+import com.gaincigarretprice.idiot.sun.view.dagger.DaggerMainComponent;
 import com.gaincigarretprice.idiot.sun.view.dagger.MainModule;
 
 import javax.inject.Inject;
@@ -30,7 +31,6 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     @Inject
     AlarmPresenter mAlarmPresenter;
 
-    @Inject
     AlarmAdapter mAlarmAdapter;
 
     @Override
@@ -38,9 +38,10 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mAlarmAdapter = new AlarmAdapter();
 
         DaggerMainComponent.builder()
-                .mainModule(new MainModule(this))
+                .mainModule(new MainModule(this, mAlarmAdapter))
                 .build()
                 .inject(this);
 
@@ -57,7 +58,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
         mainAlarmContainer.setAdapter(mAlarmAdapter);
         mainAlarmContainer.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
 
-        mAlarmAdapterDataView.setOnItemClickListener((adapter, position) -> {
+        mAlarmAdapter.setOnItemClickListener((adapter, position) -> {
             mAlarmPresenter.onItemClick(position);
         });
 
