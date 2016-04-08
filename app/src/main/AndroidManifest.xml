@@ -46,14 +46,6 @@
                 <action android:name="com.gaincigarretprice.idiot.sun.action.alarm.klaxon"></action>
             </intent-filter>
         </service>
-        <service android:name=".service.AlarmKlaxonService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-                <action android:name="com.gaincigarretprice.idiot.sun.action.alarm.view"></action>
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>
