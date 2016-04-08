@@ -20,14 +20,14 @@ android {
                     output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
         }
     }
-    productFlavors {
-        dev {
-            minSdkVersion rootProject.ext.flavorDevMinSdkVersion
-        }
-        prod {
-            minSdkVersion rootProject.ext.flavorProdMinSdkVersion
-        }
-    }
+//    productFlavors {
+//        dev {
+//            minSdkVersion rootProject.ext.flavorDevMinSdkVersion
+//        }
+//        prod {
+//            minSdkVersion rootProject.ext.flavorProdMinSdkVersion
+//        }
+//    }
     buildTypes {
         debug {
         }
