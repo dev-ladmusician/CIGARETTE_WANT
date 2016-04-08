@@ -41,10 +41,6 @@ public class ActivityAddAlarm extends BaseActivity {
     RelativeLayout mBtnBack;
     @Bind(R.id.add_alarm_time)
     TimePicker mTimePicker;
-    @Bind(R.id.add_alarm_txt_switch)
-    TextView mTxtSwitch;
-    @Bind(R.id.add_alarm_txt_btn)
-    TextView mTxtBtn;
     @Bind(R.id.add_alarm_txt_repeat)
     TextView mTxtRepeat;
     @Bind(R.id.add_alarm_txt_sound)
@@ -69,16 +65,12 @@ public class ActivityAddAlarm extends BaseActivity {
         mAlarm = new AlarmDTO();
     }
 
-    @OnClick({R.id.add_alarm_btn_back, R.id.add_alarm_switch_container, R.id.add_alarm_btn_container,
-            R.id.add_alarm_repeat_container, R.id.add_alarm_sound_container, R.id.add_alarm_btn_submit})
+    @OnClick({R.id.add_alarm_btn_back, R.id.add_alarm_repeat_container,
+            R.id.add_alarm_sound_container, R.id.add_alarm_btn_submit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_alarm_btn_back:
                 finish();
-                break;
-            case R.id.add_alarm_switch_container:
-                break;
-            case R.id.add_alarm_btn_container:
                 break;
             case R.id.add_alarm_repeat_container:
                 Intent intent = new Intent(this, ActivityAlarmRepeat.class);
