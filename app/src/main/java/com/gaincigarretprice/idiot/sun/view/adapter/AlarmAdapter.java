@@ -99,6 +99,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         public void bindView(int position) {
             mTxtTime.setText(getFullTime(position));
+
         }
 
         String getFullTime(int position) {

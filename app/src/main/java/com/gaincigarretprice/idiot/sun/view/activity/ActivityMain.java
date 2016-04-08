@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.gaincigarretprice.idiot.sun.R;
+import com.gaincigarretprice.idiot.sun.model.data.Alarm;
 import com.gaincigarretprice.idiot.sun.presenter.AlarmPresenter;
 import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;
@@ -68,6 +69,12 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     @Override
     public void refresh() {
         mAlarmAdapterDataView.refresh();
+    }
+
+    @Override
+    public void showAlarmInfo(Alarm alarm) {
+        // Fragment? Activity?
+        // 해당 알람 클릭 후 정보 보여주거나. 수정하는 화면.
     }
 
     @OnClick(R.id.fab)
