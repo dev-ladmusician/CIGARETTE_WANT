@@ -6,6 +6,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.gaincigarretprice.idiot.sun.R;
+
 public class AlarmReceiveService extends Service {
     private final String TAG = "SERVER_ALARM_FIRE";
 
