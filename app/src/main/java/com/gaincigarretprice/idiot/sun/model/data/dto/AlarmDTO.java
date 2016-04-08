@@ -7,14 +7,15 @@ public class AlarmDTO {
     private int _alarmid;
     private int hour;
     private int min;
-    private String ringtone;
-    private int sun;
-    private int mon;
-    private int tue;
-    private int wed;
-    private int thur;
-    private int fri;
-    private int sat;
+    private String ringtone_title;
+    private String ringtone_url;
+    private boolean sun;
+    private boolean mon;
+    private boolean tue;
+    private boolean wed;
+    private boolean thur;
+    private boolean fri;
+    private boolean sat;
     private int isdeprecated;
     private int for_userid;
 
@@ -36,66 +37,76 @@ public class AlarmDTO {
     public void setMin(int min) {
         this.min = min;
     }
-    public String getRingtone() {
-        return ringtone;
-    }
-    public void setRingtone(String ringtone) {
-        this.ringtone = ringtone;
+
+    public String getRingtone_title() {
+        return ringtone_title;
     }
 
-    public int getSun() {
+    public void setRingtone_title(String ringtone_title) {
+        this.ringtone_title = ringtone_title;
+    }
+
+    public String getRingtone_url() {
+        return ringtone_url;
+    }
+
+    public void setRingtone_url(String ringtone_url) {
+        this.ringtone_url = ringtone_url;
+    }
+
+    public boolean isSun() {
         return sun;
     }
 
-    public void setSun(int sun) {
+    public void setSun(boolean sun) {
         this.sun = sun;
     }
 
-    public int getMon() {
+    public boolean isMon() {
         return mon;
     }
 
-    public void setMon(int mon) {
+    public void setMon(boolean mon) {
         this.mon = mon;
     }
 
-    public int getTue() {
+    public boolean isTue() {
         return tue;
     }
 
-    public void setTue(int tue) {
+    public void setTue(boolean tue) {
         this.tue = tue;
     }
 
-    public int getWed() {
+    public boolean isWed() {
         return wed;
     }
 
-    public void setWed(int wed) {
+    public void setWed(boolean wed) {
         this.wed = wed;
     }
 
-    public int getThur() {
+    public boolean isThur() {
         return thur;
     }
 
-    public void setThur(int thur) {
+    public void setThur(boolean thur) {
         this.thur = thur;
     }
 
-    public int getFri() {
+    public boolean isFri() {
         return fri;
     }
 
-    public void setFri(int fri) {
+    public void setFri(boolean fri) {
         this.fri = fri;
     }
 
-    public int getSat() {
+    public boolean isSat() {
         return sat;
     }
 
-    public void setSat(int sat) {
+    public void setSat(boolean sat) {
         this.sat = sat;
     }
 

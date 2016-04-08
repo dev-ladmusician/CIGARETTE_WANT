@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@color/IDENTITY_BLUE">
+
+            <RelativeLayout
+                android:id="@+id/add_alarm_btn_back"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/toolbar_side_padding">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_keyboard_arrow_left_white"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ADD_ALARM_TITLE"
+                android:textStyle="bold"
+                android:textColor="@color/WHITE"
+                android:textSize="@dimen/main_title_txt_size"/>
+        </RelativeLayout>
+
+        <!-- content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="9"
+                        android:gravity="center">
+
+                        <TimePicker
+                            android:id="@+id/add_alarm_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:timePickerMode="spinner"
+                            android:layout_centerInParent="true"
+                            android:background="@color/WHITE"></TimePicker>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_border_bottom_bg_transparent"></RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- repeat -->
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_TITLE" />
+
+                        <TextView
+                            android:id="@+id/add_alarm_txt_repeat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/add_alarm_ic_repeat"
+                            android:layout_marginRight="@dimen/add_alarm_item_right_margin"
+                            android:text="" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_ic_repeat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_keyboard_arrow_right" />
+                    </RelativeLayout>
+
+                    <!-- sound -->
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_sound_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_SOUND_TITLE" />
+
+                        <TextView
+                            android:id="@+id/add_alarm_txt_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/add_alarm_ic_sound"
+                            android:layout_marginRight="@dimen/add_alarm_item_right_margin"
+                            android:text="" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_ic_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_keyboard_arrow_right" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20">
+
+                <Button
+                    android:id="@+id/add_alarm_btn_submit"
+                    android:layout_width="@dimen/action_btn_width"
+                    android:layout_height="@dimen/action_btn_height"
+                    android:text="@string/ADD_ALARM_SAVE"
+                    android:textColorLink="@color/seletor_action_btn_txt"
+                    android:textColor="@color/seletor_action_btn_txt"
+                    android:textColorHighlight="@color/seletor_action_btn_txt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/selector_action_btn"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

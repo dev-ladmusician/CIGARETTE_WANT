@@ -1,7 +1,5 @@
 package com.gaincigarretprice.idiot.sun.presenter;
 
-import com.gaincigarretprice.idiot.sun.model.data.Alarm;
-
 /**
  * Created by ladmusician on 4/5/16.
  */
@@ -12,6 +10,6 @@ public interface AlarmPresenter {
 
     interface View {
         void refresh();
-        void showAlarmInfo(Alarm alarm);
+        void showAlarmInfo(int alarmId);
     }
 }

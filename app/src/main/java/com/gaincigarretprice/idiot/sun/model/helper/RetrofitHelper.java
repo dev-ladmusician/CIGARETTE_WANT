@@ -12,22 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHelper {
     private static final String BASE_URL = "http://52.79.40.34:8989/";
-    //private static Retrofit mRetrofit = null;
-
-//    public static Retrofit getRetrofitBuilder() {
-//        if (mRetrofit == null) {
-//            Gson gson = new GsonBuilder()
-//                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-//                    .create();
-//            mRetrofit = new Retrofit.Builder()
-//                    .baseUrl(BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create(gson))
-//                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                    .build();
-//        }
-//
-//        return mRetrofit;
-//    }
 
     public static Retrofit createRetrofit() {
         Gson gson = new GsonBuilder()

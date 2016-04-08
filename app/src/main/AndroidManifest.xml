@@ -3,15 +3,16 @@
     package="com.gaincigarretprice.idiot.sun">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".app.CigarreteApplication"
-        >
+        android:theme="@style/AppTheme">
+
         <activity android:name=".view.activity.ActivityMain"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,6 +20,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.ActivityAddAlarm"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".view.activity.ActivityAlarmRepeat"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <!-- SERVICE -->
+        <service
+            android:name=".service.AlarmReceiveService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="com.gaincigarretprice.idiot.sun.action.alarm"></action>
+            </intent-filter>
+        </service>
+        <service android:name=".service.AlarmKlaxonService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="com.gaincigarretprice.idiot.sun.action.alarm.klaxon"></action>
+            </intent-filter>
+        </service>
+        <service android:name=".service.AlarmKlaxonService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="com.gaincigarretprice.idiot.sun.action.alarm.view"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

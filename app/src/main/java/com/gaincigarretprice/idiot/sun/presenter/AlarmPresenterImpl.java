@@ -1,6 +1,5 @@
 package com.gaincigarretprice.idiot.sun.presenter;
 
-import com.gaincigarretprice.idiot.sun.model.data.Alarm;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.model.data.dto.ResultDTO;
 import com.gaincigarretprice.idiot.sun.model.remote.AlarmService;
@@ -45,18 +44,17 @@ public class AlarmPresenterImpl implements AlarmPresenter {
 
     @Override
     public void onItemClick(int position) {
-        Alarm alarm = getAlarmInfo(position);
-        showAlarmInfo(alarm);
+        showAlarmInfo(getAlarmId(position));
     }
 
-    private Alarm getAlarmInfo(int position) {
+    private int getAlarmId(int position) {
         AlarmDTO alarmDTO = mAlarmAdapterDataModel.getItem(position);
         int alarmId = alarmDTO.get_alarmid();
-        return mAlarmService.getAlarmInfo(alarmId);
+        return alarmId;
     }
 
-    private void showAlarmInfo(Alarm alarm) {
-        mView.showAlarmInfo(alarm);
+    private void showAlarmInfo(int alarmId) {
+        mView.showAlarmInfo(alarmId);
     }
 
     @Override

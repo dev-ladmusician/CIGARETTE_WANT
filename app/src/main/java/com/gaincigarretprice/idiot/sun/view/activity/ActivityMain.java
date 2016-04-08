@@ -1,5 +1,6 @@
 package com.gaincigarretprice.idiot.sun.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,9 +73,12 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     }
 
     @Override
-    public void showAlarmInfo(Alarm alarm) {
+    public void showAlarmInfo(int alarmId) {
         // Fragment? Activity?
         // 해당 알람 클릭 후 정보 보여주거나. 수정하는 화면.
+        Intent intent = new Intent(this, ActivityAlarmRepeat.class);
+        intent.putExtra(Alarm.ALARM_ID, alarmId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.fab)
