@@ -2,4 +2,26 @@
     <string name="app_name">SUN</string>
 
     <string name="MAIN_TITLE">CIGARETTE</string>
+
+    <!-- ACTION -->
+    <string name="ACTION_ALARM">com.gaincigarretprice.idiot.sun.action.alarm</string>
+    <string name="ACTION_ALARM_KLAXON">com.gaincigarretprice.idiot.sun.action.alarm.klaxon</string>
+    <string name="ACTION_ALARM_VIEW">com.gaincigarretprice.idiot.sun.action.alarm.view</string>
+
+    <!-- KEY -->
+    <string name="KEY_DEVICE_WIDTH">panelWidth</string>
+    <string name="KEY_DEVICE_HEIGHT">panelHeight</string>
+
+    <!-- ADD ALARM -->
+    <string name="ADD_ALARM_TITLE">알람등록</string>
+    <string name="ADD_ALARM_SOUND_TITLE">Ringtone</string>
+    <string name="ADD_ALARM_REPEAT_TITLE">Repeat</string>
+    <string name="ADD_ALARM_SAVE">등록</string>
+    <string name="ADD_ALARM_REPEAT_SUN">Every Sunday</string>
+    <string name="ADD_ALARM_REPEAT_MON">Every Monday</string>
+    <string name="ADD_ALARM_REPEAT_TUES">Every Tuesday</string>
+    <string name="ADD_ALARM_REPEAT_WED">Every Wednesday</string>
+    <string name="ADD_ALARM_REPEAT_THUR">Every Thursday</string>
+    <string name="ADD_ALARM_REPEAT_FRI">Every Friday</string>
+    <string name="ADD_ALARM_REPEAT_SAT">Every Saturday</string>
 </resources>

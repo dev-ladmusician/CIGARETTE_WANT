@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@color/IDENTITY_BLUE">
+
+            <RelativeLayout
+                android:id="@+id/add_alarm_btn_back"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/toolbar_side_padding">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_keyboard_arrow_left_white" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ADD_ALARM_REPEAT_TITLE"
+                android:textColor="@color/WHITE"
+                android:textSize="@dimen/main_title_txt_size"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="90"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_sun_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_SUN" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_sun_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_mon_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_MON" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_mon_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_tues_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_TUES" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_tues_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_wed_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_WED" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_wed_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_thur_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_THUR" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_thur_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_fri_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_FRI" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_fri_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/add_alarm_repeat_sat_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_list"
+                        android:paddingLeft="@dimen/add_alarm_side_padding"
+                        android:paddingRight="@dimen/add_alarm_side_padding">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ADD_ALARM_REPEAT_SAT" />
+
+                        <ImageView
+                            android:id="@+id/add_alarm_repeat_sat_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/img_check_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"></RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10">
+
+                <Button
+                    android:id="@+id/add_alarm_btn_submit"
+                    android:layout_width="@dimen/action_btn_width"
+                    android:layout_height="@dimen/action_btn_height"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/selector_action_btn"
+                    android:scaleType="fitCenter"
+                    android:text="@string/ADD_ALARM_SAVE"
+                    android:textColor="@color/seletor_action_btn_txt"
+                    android:textColorHighlight="@color/seletor_action_btn_txt"
+                    android:textColorLink="@color/seletor_action_btn_txt" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
