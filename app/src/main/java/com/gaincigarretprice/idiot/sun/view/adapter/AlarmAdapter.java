@@ -112,12 +112,15 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         public void bindView(int position) {
             mTxtTime.setText(getFullTime(position));
-
         }
 
         String getFullTime(int position) {
 
             AlarmObject alarmObject = alarmObjectRealmResults.get(position);
+
+            // TODO: 2016. 4. 9.  for DEBUG
+            itemView.setOnClickListener((view) -> LogUtil.print(TAG, alarmObject.toString()));
+
             int hour = isPM(alarmObject) ? (alarmObject.getHour() - 12) : alarmObject.getHour();
 
             return new StringBuilder(

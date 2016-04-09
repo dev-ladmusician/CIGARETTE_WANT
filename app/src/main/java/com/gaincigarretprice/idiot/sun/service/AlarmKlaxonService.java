@@ -12,6 +12,8 @@ import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.helper.AudioFocusHelper;
 import com.gaincigarretprice.idiot.sun.view.interfaces.MusicFocusable;
 
+import java.util.Calendar;
+
 public class AlarmKlaxonService extends Service implements MusicFocusable, MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener {
     private static final String TAG = "SERVICE_ALARM";
 
@@ -161,7 +163,20 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         String action = intent.getAction();
         if (action.equals(getString(R.string.ACTION_ALARM_KLAXON))) {
             mRingtoneURI = intent.getStringExtra(getString(R.string.KEY_ALARM_RINGTONE));
-            processPlayRequest();
+
+            int sumWeekValue = 0;
+            boolean[] week = intent.getBooleanArrayExtra(getString(R.string.KEY_ALARM_REPEAT));
+            for (boolean tmp : week) {
+                if (tmp) sumWeekValue++;
+            }
+            if (sumWeekValue == 0) {
+                processPlayRequest();
+            } else {
+                Calendar cal = Calendar.getInstance();
+                if (!week[cal.get(Calendar.DAY_OF_WEEK)]) {
+                    processPlayRequest();
+                }
+            }
         }
         return super.onStartCommand(intent, flags, startId);
     }

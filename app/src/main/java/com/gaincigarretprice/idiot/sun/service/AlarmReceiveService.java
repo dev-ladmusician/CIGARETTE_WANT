@@ -28,9 +28,11 @@ public class AlarmReceiveService extends Service {
             startService(viewIntent);
 
             String ringtoneURI = intent.getStringExtra(getString(R.string.KEY_ALARM_RINGTONE));
+            boolean[] week = intent.getBooleanArrayExtra(getString(R.string.KEY_ALARM_REPEAT));
             Intent klaxonIntent = new Intent(this,AlarmKlaxonService.class);
             klaxonIntent.setAction(getString(R.string.ACTION_ALARM_KLAXON));
             klaxonIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), ringtoneURI);
+            klaxonIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
             startService(klaxonIntent);
         }
 

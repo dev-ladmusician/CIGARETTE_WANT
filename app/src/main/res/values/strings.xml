@@ -17,6 +17,8 @@
     <string name="KEY_BASIC_RINGTONE">Basic Ringtone</string>
     <string name="KEY_ALARM_ID">alarm_id</string>
 
+    <string name="KEY_ALARM_REPEAT">alarm_repeat_day</string>
+
     <!-- ADD ALARM -->
     <string name="ADD_ALARM_TITLE">알람등록</string>
     <string name="ADD_ALARM_SOUND_TITLE">Ringtone</string>

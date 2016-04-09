@@ -22,6 +22,7 @@ import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
 import com.gaincigarretprice.idiot.sun.service.AlarmReceiveService;
 import com.gaincigarretprice.idiot.sun.util.Constant;
+import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
 
 import java.util.Date;
@@ -105,7 +106,7 @@ public class ActivityAddAlarm extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
-            case ADD_ALARM_SOUND_RESULT_CODE:	// ringtone
+            case ADD_ALARM_SOUND_RESULT_CODE:    // ringtone
                 dealRingtone(data);
                 break;
             case ADD_ALARM_REPEAT_RESULT_CODE:     // repeat
@@ -118,6 +119,7 @@ public class ActivityAddAlarm extends BaseActivity {
 
     /**
      * get ringtone url, title
+     *
      * @param data
      */
     void dealRingtone(Intent data) {
@@ -149,11 +151,10 @@ public class ActivityAddAlarm extends BaseActivity {
      */
     void setAlarm() {
         mTimePicker.clearFocus();
-        if(Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             mAlarm.setHour(mTimePicker.getHour());
             mAlarm.setMin(mTimePicker.getMinute());
-        }
-        else {
+        } else {
             mAlarm.setHour(mTimePicker.getCurrentHour());
             mAlarm.setMin(mTimePicker.getCurrentMinute());
         }
@@ -166,10 +167,22 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmObject.set_alarmid(((int) new Date().getTime()));
         alarmObject.setHour(mAlarm.getHour());
         alarmObject.setMin(mAlarm.getMin());
+        alarmObject.setSun(mAlarm.isSun());
+        alarmObject.setMon(mAlarm.isMon());
+        alarmObject.setTue(mAlarm.isTue());
+        alarmObject.setWed(mAlarm.isWed());
+        alarmObject.setThur(mAlarm.isThur());
+        alarmObject.setFri(mAlarm.isFri());
+        alarmObject.setSat(mAlarm.isSat());
         realm.commitTransaction();
+        LogUtil.print(TAG, alarmObject.toString());
+
+        boolean[] week = {mAlarm.isSun(), mAlarm.isMon(), mAlarm.isTue(), mAlarm.isWed(), mAlarm.isThur(),
+                mAlarm.isFri(), mAlarm.isSat()};
 
         Intent alarmIntent = new Intent(mContext, AlarmReceiveService.class);
         alarmIntent.setAction(getString(R.string.ACTION_ALARM));
+        alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), alarmObject.get_alarmid());
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
         PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -180,7 +193,7 @@ public class ActivityAddAlarm extends BaseActivity {
 
     private AlarmManager getAlarmManager() {
         if (mAlarmManger == null) {
-            mAlarmManger = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            mAlarmManger = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         }
         return mAlarmManger;
     }
