@@ -19,13 +19,17 @@ import android.widget.TimePicker;
 import com.gaincigarretprice.idiot.djlibrary.util.AlarmUtil;
 import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
+import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
 import com.gaincigarretprice.idiot.sun.service.AlarmReceiveService;
 import com.gaincigarretprice.idiot.sun.util.Constant;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
 
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * Created by ladmusician on 3/8/16.
@@ -83,7 +87,8 @@ public class ActivityAddAlarm extends BaseActivity {
                 showRingtonePickerDialog();
                 break;
             case R.id.add_alarm_btn_submit:
-                setAlarm(1);
+                setAlarm();
+                finish();
                 break;
         }
     }
@@ -141,9 +146,8 @@ public class ActivityAddAlarm extends BaseActivity {
 
     /**
      * register alarm by realm object id
-     * @param id
      */
-    void setAlarm(long id) {
+    void setAlarm() {
         mTimePicker.clearFocus();
         if(Build.VERSION.SDK_INT >= 23) {
             mAlarm.setHour(mTimePicker.getHour());
@@ -156,13 +160,22 @@ public class ActivityAddAlarm extends BaseActivity {
 
         long triggerTime = AlarmUtil.calSetTimerSecond(mAlarm.getHour(), mAlarm.getMin());
 
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        AlarmObject alarmObject = realm.createObject(AlarmObject.class);
+        alarmObject.set_alarmid(((int) new Date().getTime()));
+        alarmObject.setHour(mAlarm.getHour());
+        alarmObject.setMin(mAlarm.getMin());
+        realm.commitTransaction();
+
         Intent alarmIntent = new Intent(mContext, AlarmReceiveService.class);
         alarmIntent.setAction(getString(R.string.ACTION_ALARM));
-        alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), id);
+        alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), alarmObject.get_alarmid());
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
         PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
         Log.e(TAG, "COMPLETE REGISTER ALARM");
+
     }
 
     private AlarmManager getAlarmManager() {

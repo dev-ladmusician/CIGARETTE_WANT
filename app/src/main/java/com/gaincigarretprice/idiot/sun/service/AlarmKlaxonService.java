@@ -35,6 +35,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         //configAndStartMediaPlayer();
         mPlayer.start();
     }
+
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         Log.e(TAG, "Error: what=" + String.valueOf(what) + ", extra=" + String.valueOf(extra));
@@ -43,6 +44,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         giveUpAudioFocus();
         return true; // true indicates we handled the error
     }
+
     @Override
     public void onGainedAudioFocus() {
         mAudioFocus = AudioFocus.Focused;
@@ -50,6 +52,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
 
         Log.e(TAG, "GOT FOCUS");
     }
+
     @Override
     public void onLostAudioFocus(boolean canDuck) {
         mAudioFocus = canDuck ? AudioFocus.NoFocusCanDuck : AudioFocus.NoFocusNoDuck;
@@ -65,6 +68,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         if (mAudioFocus == AudioFocus.Focused && mAudioFocusHelper != null && mAudioFocusHelper.abandonFocus())
             mAudioFocus = AudioFocus.NoFocusNoDuck;
     }
+
     void configAndStartMediaPlayer() {
         Log.e(TAG, "AUDIO FOCUE: " + mAudioFocus);
 
@@ -74,14 +78,14 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
             // playback once we get the focus back.
             if (mPlayer.isPlaying()) mPlayer.pause();
             return;
-        }
-        else if (mAudioFocus == AudioFocus.NoFocusCanDuck)
+        } else if (mAudioFocus == AudioFocus.NoFocusCanDuck)
             mPlayer.setVolume(DUCK_VOLUME, DUCK_VOLUME);  // we'll be relatively quiet
         else
             mPlayer.setVolume(1.0f, 1.0f); // we can be loud
 
         if (!mPlayer.isPlaying()) mPlayer.start();
     }
+
     void relaxResources(boolean releaseMediaPlayer) {
         // stop being a foreground service
         stopForeground(true);
@@ -93,6 +97,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
             mPlayer = null;
         }
     }
+
     void createMediaPlayerIfNeeded() {
         if (mPlayer == null) {
             Log.e(TAG, "RINGTONE : " + mRingtoneURI);
@@ -119,15 +124,16 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
             // playing:
             mPlayer.setOnPreparedListener(this);
             mPlayer.setOnErrorListener(this);
-        }
-        else
+        } else
             mPlayer.reset();
     }
+
     void tryToGetAudioFocus() {
         if (mAudioFocus != AudioFocus.Focused && mAudioFocusHelper != null && mAudioFocusHelper.requestFocus()) {
             mAudioFocus = AudioFocus.Focused;
         }
     }
+
     void playRingtone() {
         relaxResources(false); // release everything except MediaPlayer
 
@@ -138,12 +144,12 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
             mPlayer.prepareAsync();
 
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Log.e("MusicService", "IOException playing next song: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
+
     void processPlayRequest() {
         Log.e(TAG, "play the music");
         tryToGetAudioFocus();
@@ -159,6 +165,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         }
         return super.onStartCommand(intent, flags, startId);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -166,7 +173,7 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
         if (android.os.Build.VERSION.SDK_INT >= 8) {
             Log.e(TAG, "run focus helper");
             mAudioFocusHelper = new AudioFocusHelper(getApplicationContext(), this);
-        } else{
+        } else {
             mAudioFocus = AudioFocus.Focused; // no focus feature, so we always "have" audio focus
         }
     }
@@ -174,8 +181,15 @@ public class AlarmKlaxonService extends Service implements MusicFocusable, Media
     @Override
     public void onDestroy() {
         Log.e(TAG, "KLAXON SERVICE DESTROY");
-        if(mPlayer.isPlaying()) mPlayer.stop();
-        if(mPlayer != null) mPlayer = null;
+        if (mPlayer != null) {
+
+            if (mPlayer.isPlaying()) {
+
+                mPlayer.stop();
+            }
+
+            mPlayer = null;
+        }
 
         relaxResources(true);
 

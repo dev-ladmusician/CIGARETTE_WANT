@@ -7,6 +7,7 @@ public interface AlarmPresenter {
     void loadItems();
     void onItemClick(int position);
     void deleteItem(int position);
+    void closeRealm();
 
     interface View {
         void refresh();

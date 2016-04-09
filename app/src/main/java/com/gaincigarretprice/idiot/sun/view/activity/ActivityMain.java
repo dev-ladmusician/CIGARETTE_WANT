@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.gaincigarretprice.idiot.sun.R;
+import com.gaincigarretprice.idiot.sun.event.Events;
 import com.gaincigarretprice.idiot.sun.model.data.Alarm;
+import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
 import com.gaincigarretprice.idiot.sun.presenter.AlarmPresenter;
 import com.gaincigarretprice.idiot.sun.util.Constant;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;
@@ -21,6 +23,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.RealmResults;
+import rx.Subscriber;
 
 public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     private static final String TAG = "ACTIVITY_MAIN";
@@ -34,6 +38,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     AlarmPresenter mAlarmPresenter;
 
     AlarmAdapter mAlarmAdapter;
+    private Subscriber<RealmResults<AlarmObject>> subscriber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,22 +52,43 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
                 .build()
                 .inject(this);
 
+        subscriber = new Subscriber<RealmResults<AlarmObject>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(RealmResults<AlarmObject> alarmObjects) {
+                mAlarmAdapter.setData(alarmObjects);
+                mAlarmAdapter.refresh();
+            }
+        };
+        Events.realmResultsPublishSubject.subscribe(subscriber);
+
         init();
     }
 
     @Override
     protected void onDestroy() {
+        mAlarmPresenter.closeRealm();
         ButterKnife.unbind(this);
+        subscriber.unsubscribe();
         super.onDestroy();
     }
 
     public void init() {
-        mainAlarmContainer.setAdapter(mAlarmAdapter);
         mainAlarmContainer.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
 
         mAlarmAdapter.setOnItemClickListener((adapter, position) -> {
             mAlarmPresenter.onItemClick(position);
         });
+        mainAlarmContainer.setAdapter(mAlarmAdapter);
 
         mAlarmPresenter.loadItems();
     }
@@ -76,7 +102,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
     public void showAlarmInfo(int alarmId) {
         // Fragment? Activity?
         // 해당 알람 클릭 후 정보 보여주거나. 수정하는 화면.
-        Intent intent = new Intent(this, ActivityAlarmRepeat.class);
+        Intent intent = new Intent(this, ActivityAddAlarm.class);
         intent.putExtra(Alarm.ALARM_ID, alarmId);
         startActivity(intent);
     }
