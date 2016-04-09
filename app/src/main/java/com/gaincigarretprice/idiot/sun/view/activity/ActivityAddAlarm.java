@@ -130,17 +130,22 @@ public class ActivityAddAlarm extends BaseActivity {
                 break;
             case R.id.add_alarm_repeat_container:
                 Intent intent = new Intent(this, ActivityAlarmRepeat.class);
-                intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), new boolean[]{true, false, false, false, false, false, false});
-                startActivityForResult(intent, Constant.ADD_ALARM_REPEAT_REQUEST_CODE);
+                if (!isEditMode) {
+                    intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), new boolean[]{true, false, false, false, false, false, false});
+                } else {
+                    // TODO: 2016. 4. 9.  알람 수정로직. Target AlarmObject 를 Class Member Field 로 변경하고 조건문에서는 Boolean Array만 분기처리
+                    intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), new boolean[]{true, false, false, false, false, false, false});
+                }
+                    startActivityForResult(intent, Constant.ADD_ALARM_REPEAT_REQUEST_CODE);
                 break;
             case R.id.add_alarm_sound_container:
                 showRingtonePickerDialog();
                 break;
             case R.id.add_alarm_btn_submit:
-                if(!isEditMode)
+                if (!isEditMode)
                     setAlarm();
                 else {
-                    // TODO: 2016. 4. 9.  알람 수정로직. 
+                    // TODO: 2016. 4. 9.  알람 수정로직.
                 }
                 finish();
                 break;
