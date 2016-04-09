@@ -299,6 +299,8 @@ public class ActivityAddAlarm extends BaseActivity {
         boolean[] week = {mAlarm.isSun(), mAlarm.isMon(), mAlarm.isTue(), mAlarm.isWed(), mAlarm.isThur(),
                 mAlarm.isFri(), mAlarm.isSat()};
 
+        // TODO: 2016. 4. 9.  기존의 알람 시간을 수정하는 코드로 변경해야함.
+        
         Intent alarmIntent = new Intent(mContext, AlarmReceiveService.class);
         alarmIntent.setAction(getString(R.string.ACTION_ALARM));
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
