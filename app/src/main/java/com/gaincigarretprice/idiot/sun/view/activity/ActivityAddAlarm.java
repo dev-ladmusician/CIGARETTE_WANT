@@ -55,6 +55,7 @@ public class ActivityAddAlarm extends BaseActivity {
     @Bind(R.id.add_alarm_txt_sound)
     TextView mTxtSound;
 
+    AlarmObject alarmObject;
 
     private boolean isEditMode = false;
 
@@ -102,9 +103,19 @@ public class ActivityAddAlarm extends BaseActivity {
             mTimePicker.setCurrentHour(alarmObject.getHour());
             mTimePicker.setCurrentMinute(alarmObject.getMin());
         }
-
+        this.alarmObject = alarmObject;
         isEditMode = true;
+
+        mAlarm.setSun(alarmObject.isSun());
+        mAlarm.setMon(alarmObject.isMon());
+        mAlarm.setTue(alarmObject.isTue());
+        mAlarm.setWed(alarmObject.isWed());
+        mAlarm.setThur(alarmObject.isThur());
+        mAlarm.setFri(alarmObject.isFri());
+        mAlarm.setSat(alarmObject.isSat());
+
     }
+
 
     private boolean isExistAlarmEditMode(int alarmId) {
         return alarmId != -1;
@@ -130,13 +141,9 @@ public class ActivityAddAlarm extends BaseActivity {
                 break;
             case R.id.add_alarm_repeat_container:
                 Intent intent = new Intent(this, ActivityAlarmRepeat.class);
-                if (!isEditMode) {
-                    intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), new boolean[]{true, false, false, false, false, false, false});
-                } else {
-                    // TODO: 2016. 4. 9.  알람 수정로직. Target AlarmObject 를 Class Member Field 로 변경하고 조건문에서는 Boolean Array만 분기처리
-                    intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), new boolean[]{true, false, false, false, false, false, false});
-                }
-                    startActivityForResult(intent, Constant.ADD_ALARM_REPEAT_REQUEST_CODE);
+                boolean[] week = setRepeatDayToArray();
+                intent.putExtra(getString(R.string.KEY_ADD_ALARM_REPEAT), week);
+                startActivityForResult(intent, Constant.ADD_ALARM_REPEAT_REQUEST_CODE);
                 break;
             case R.id.add_alarm_sound_container:
                 showRingtonePickerDialog();
@@ -145,11 +152,23 @@ public class ActivityAddAlarm extends BaseActivity {
                 if (!isEditMode)
                     setAlarm();
                 else {
-                    // TODO: 2016. 4. 9.  알람 수정로직.
+                    editAlarm();
                 }
                 finish();
                 break;
         }
+    }
+
+    private boolean[] setRepeatDayToArray() {
+        boolean[] week;
+        if (!isEditMode) {
+            week = new boolean[]{true, false, false, false, false, false, false};
+        } else {
+            week = new boolean[]{
+                    alarmObject.isSun(), alarmObject.isMon(), alarmObject.isTue(), alarmObject.isWed(),
+                    alarmObject.isThur(), alarmObject.isFri(), alarmObject.isSat()};
+        }
+        return week;
     }
 
     /**
@@ -233,7 +252,6 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmObject.setFri(mAlarm.isFri());
         alarmObject.setSat(mAlarm.isSat());
         realm.commitTransaction();
-        LogUtil.print(TAG, alarmObject.toString());
 
         boolean[] week = {mAlarm.isSun(), mAlarm.isMon(), mAlarm.isTue(), mAlarm.isWed(), mAlarm.isThur(),
                 mAlarm.isFri(), mAlarm.isSat()};
@@ -247,6 +265,47 @@ public class ActivityAddAlarm extends BaseActivity {
         getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
         Log.e(TAG, "COMPLETE REGISTER ALARM");
 
+    }
+
+    void editAlarm() {
+        mTimePicker.clearFocus();
+        if (Build.VERSION.SDK_INT >= 23) {
+            mAlarm.setHour(mTimePicker.getHour());
+            mAlarm.setMin(mTimePicker.getMinute());
+        } else {
+            mAlarm.setHour(mTimePicker.getCurrentHour());
+            mAlarm.setMin(mTimePicker.getCurrentMinute());
+        }
+
+        long triggerTime = AlarmUtil.calSetTimerSecond(mAlarm.getHour(), mAlarm.getMin());
+
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        alarmObject.setHour(mAlarm.getHour());
+        alarmObject.setMin(mAlarm.getMin());
+
+        // TODO: 2016. 4. 9. 반복요일을 수정하지 않은 경우를 처리는 bindExistAlarmData() 함수에서 땜빵코드.
+        
+        alarmObject.setSun(mAlarm.isSun());
+        alarmObject.setMon(mAlarm.isMon());
+        alarmObject.setTue(mAlarm.isTue());
+        alarmObject.setWed(mAlarm.isWed());
+        alarmObject.setThur(mAlarm.isThur());
+        alarmObject.setFri(mAlarm.isFri());
+        alarmObject.setSat(mAlarm.isSat());
+        realm.commitTransaction();
+
+
+        boolean[] week = {mAlarm.isSun(), mAlarm.isMon(), mAlarm.isTue(), mAlarm.isWed(), mAlarm.isThur(),
+                mAlarm.isFri(), mAlarm.isSat()};
+
+        Intent alarmIntent = new Intent(mContext, AlarmReceiveService.class);
+        alarmIntent.setAction(getString(R.string.ACTION_ALARM));
+        alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
+        alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), alarmObject.get_alarmid());
+        alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
+        PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
     }
 
     private AlarmManager getAlarmManager() {
