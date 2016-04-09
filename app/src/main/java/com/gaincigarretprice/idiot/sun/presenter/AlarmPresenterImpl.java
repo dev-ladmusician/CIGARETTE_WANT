@@ -1,7 +1,6 @@
 package com.gaincigarretprice.idiot.sun.presenter;
 
 import com.gaincigarretprice.idiot.sun.event.Events;
-import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
 import com.gaincigarretprice.idiot.sun.model.remote.AlarmService;
 import com.gaincigarretprice.idiot.sun.util.LogUtil;
@@ -75,9 +74,8 @@ public class AlarmPresenterImpl implements AlarmPresenter {
     }
 
     private int getAlarmId(int position) {
-        AlarmDTO alarmDTO = mAlarmAdapterDataModel.getItem(position);
-        int alarmId = alarmDTO.get_alarmid();
-        return alarmId;
+        AlarmObject alarmObject = mAlarmAdapterDataModel.getItem(position);
+        return alarmObject.get_alarmid();
     }
 
     private void showAlarmInfo(int alarmId) {

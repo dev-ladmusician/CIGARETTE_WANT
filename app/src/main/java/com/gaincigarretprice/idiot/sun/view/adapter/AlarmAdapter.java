@@ -72,8 +72,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     @Override
-    public AlarmDTO getItem(int position) {
-        return mAlarmList.get(position);
+    public AlarmObject getItem(int position) {
+        return alarmObjectRealmResults.get(position);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public void setOnItemClickListener(OnItemClickListener onRecyclerItemClickListener) {
-
+        setItemClickListener(onRecyclerItemClickListener);
     }
 
     public void setItemStateChangeListener(OnItemStateChangeListener mItemStateChangeListener) {
@@ -112,14 +112,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         public void bindView(int position) {
             mTxtTime.setText(getFullTime(position));
+
+            itemView.setOnClickListener((view) -> mItemClickListener.onItemClick(AlarmAdapter.this, position));
         }
 
         String getFullTime(int position) {
 
             AlarmObject alarmObject = alarmObjectRealmResults.get(position);
-
-            // TODO: 2016. 4. 9.  for DEBUG
-            itemView.setOnClickListener((view) -> LogUtil.print(TAG, alarmObject.toString()));
 
             int hour = isPM(alarmObject) ? (alarmObject.getHour() - 12) : alarmObject.getHour();
 

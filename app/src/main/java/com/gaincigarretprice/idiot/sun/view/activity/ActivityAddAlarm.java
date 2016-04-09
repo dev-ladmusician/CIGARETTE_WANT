@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 
 import com.gaincigarretprice.idiot.djlibrary.util.AlarmUtil;
 import com.gaincigarretprice.idiot.sun.R;
+import com.gaincigarretprice.idiot.sun.model.data.Alarm;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
 import com.gaincigarretprice.idiot.sun.service.AlarmReceiveService;
@@ -31,6 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by ladmusician on 3/8/16.
@@ -53,12 +55,59 @@ public class ActivityAddAlarm extends BaseActivity {
     @Bind(R.id.add_alarm_txt_sound)
     TextView mTxtSound;
 
+
+    private boolean isEditMode = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
         ButterKnife.bind(this);
         init();
+
+        int alarmId = getIntent().getIntExtra(Alarm.ALARM_ID, -1);
+
+        if (isExistAlarmEditMode(alarmId)) {
+
+            // TODO: 2016. 4. 9.  궁금하니 일단 만들고 MVP
+            AlarmObject alarmObject = getEditTargetAlarmObject(alarmId);
+
+            bindExistAlarmData(alarmObject);
+
+        }
+    }
+
+    private AlarmObject getEditTargetAlarmObject(int alarmId) {
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<AlarmObject> realmResults =
+                realm.where(AlarmObject.class).equalTo("_alarmid", alarmId).findAll();
+
+        return realmResults.size() > 0 ? realmResults.get(0) : null;
+
+    }
+
+    private void bindExistAlarmData(@Nullable AlarmObject alarmObject) {
+
+        if (null == alarmObject) {
+            LogUtil.print(TAG, "Error case : Get edit target Alarm fail");
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            mTimePicker.setHour(alarmObject.getHour());
+            mTimePicker.setMinute(alarmObject.getMin());
+        } else {
+            mTimePicker.setCurrentHour(alarmObject.getHour());
+            mTimePicker.setCurrentMinute(alarmObject.getMin());
+        }
+
+        isEditMode = true;
+    }
+
+    private boolean isExistAlarmEditMode(int alarmId) {
+        return alarmId != -1;
     }
 
     @Override
@@ -88,7 +137,11 @@ public class ActivityAddAlarm extends BaseActivity {
                 showRingtonePickerDialog();
                 break;
             case R.id.add_alarm_btn_submit:
-                setAlarm();
+                if(!isEditMode)
+                    setAlarm();
+                else {
+                    // TODO: 2016. 4. 9.  알람 수정로직. 
+                }
                 finish();
                 break;
         }
