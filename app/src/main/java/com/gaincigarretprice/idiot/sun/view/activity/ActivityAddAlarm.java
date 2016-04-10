@@ -259,7 +259,7 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), alarmObject.get_alarmid());
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
-        PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getService(mContext, alarmObject.get_alarmid(), alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
         Log.e(TAG, "COMPLETE REGISTER ALARM");
 
@@ -304,7 +304,7 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_ID), alarmObject.get_alarmid());
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
-        PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getService(mContext, alarmObject.get_alarmid(), alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
     }
 
