@@ -65,7 +65,6 @@ public class AlarmPresenterImpl implements AlarmPresenter {
                         Events.realmResultsPublishSubject.onNext(alarmObjects);
                     }
                 });
-
     }
 
     @Override

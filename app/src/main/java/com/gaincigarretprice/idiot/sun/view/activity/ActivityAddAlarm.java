@@ -26,8 +26,6 @@ import com.gaincigarretprice.idiot.sun.util.Constant;
 import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.base.BaseActivity;
 
-import java.util.Date;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -241,7 +239,7 @@ public class ActivityAddAlarm extends BaseActivity {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         AlarmObject alarmObject = realm.createObject(AlarmObject.class);
-        alarmObject.set_alarmid(((int) new Date().getTime()));
+        alarmObject.set_alarmid(getId());
         alarmObject.setHour(mAlarm.getHour());
         alarmObject.setMin(mAlarm.getMin());
         alarmObject.setSun(mAlarm.isSun());
@@ -285,7 +283,7 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmObject.setMin(mAlarm.getMin());
 
         // TODO: 2016. 4. 9. 반복요일을 수정하지 않은 경우를 처리는 bindExistAlarmData() 함수에서 땜빵코드.
-        
+
         alarmObject.setSun(mAlarm.isSun());
         alarmObject.setMon(mAlarm.isMon());
         alarmObject.setTue(mAlarm.isTue());
@@ -300,7 +298,7 @@ public class ActivityAddAlarm extends BaseActivity {
                 mAlarm.isFri(), mAlarm.isSat()};
 
         // TODO: 2016. 4. 9.  기존의 알람 시간을 수정하는 코드로 변경해야함.
-        
+
         Intent alarmIntent = new Intent(mContext, AlarmReceiveService.class);
         alarmIntent.setAction(getString(R.string.ACTION_ALARM));
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_REPEAT), week);
@@ -308,6 +306,11 @@ public class ActivityAddAlarm extends BaseActivity {
         alarmIntent.putExtra(getString(R.string.KEY_ALARM_RINGTONE), mAlarm.getRingtone_url());
         PendingIntent pi = PendingIntent.getService(mContext, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pi);
+    }
+
+    private int getId() {
+        Realm realm = Realm.getDefaultInstance();
+        return realm.where(AlarmObject.class).max("_alarmid").intValue() + 1;
     }
 
     private AlarmManager getAlarmManager() {
