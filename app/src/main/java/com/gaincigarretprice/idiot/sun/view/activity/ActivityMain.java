@@ -156,7 +156,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
                     @Override
                     public void onNext(RealmResults<AlarmObject> alarmObjects) {
                         for (AlarmObject alarmObject : alarmObjects) {
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(ActivityMain.this, alarmObject.get_alarmid(), intent, 0);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(ActivityMain.this, alarmObject.get_alarmid(), intent, PendingIntent.FLAG_NO_CREATE);
                             boolean isExistAlarm = pendingIntent != null;
                             LogUtil.print(TAG, "Alarm id " + alarmObject.get_alarmid() + " isExistAlarm : " + Boolean.toString(isExistAlarm));
                             LogUtil.print(TAG, "pending intent info : " + pendingIntent.toString());
@@ -169,7 +169,7 @@ public class ActivityMain extends BaseActivity implements AlarmPresenter.View {
                         }
                     }
                 });
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE);
         boolean isExistAlarm = pendingIntent != null;
         LogUtil.print(TAG, "Alarm id 0 isExistAlarm : " + Boolean.toString(isExistAlarm));
         LogUtil.print(TAG, "pending intent info : " + pendingIntent.toString());
