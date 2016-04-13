@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
+import com.gaincigarretprice.idiot.sun.model.data.realm.AlarmObject;
+import com.gaincigarretprice.idiot.sun.util.LogUtil;
 import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemClickListener;
 import com.gaincigarretprice.idiot.sun.view.interfaces.OnItemStateChangeListener;
 
@@ -16,17 +18,26 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 
 /**
  * Created by ladmusician on 4/5/16.
  */
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>
         implements AlarmAdapterDataModel, AlarmAdapterDataView {
+
+    private static final String TAG = AlarmAdapter.class.getSimpleName();
+
     private List<AlarmDTO> mAlarmList = new ArrayList<>();
+    private RealmResults<AlarmObject> alarmObjectRealmResults;
     private OnItemStateChangeListener mItemStateChangeListener = null;
     private OnItemClickListener mItemClickListener = null;
 
     public AlarmAdapter() {
+    }
+
+    public void setData(RealmResults<AlarmObject> alarmObjectRealmResults) {
+        this.alarmObjectRealmResults = alarmObjectRealmResults;
     }
 
     @Override
@@ -57,16 +68,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public int getSize() {
-        return mAlarmList.size();
+        return alarmObjectRealmResults.size();
     }
 
     @Override
-    public AlarmDTO getItem(int position) {
-        return mAlarmList.get(position);
+    public AlarmObject getItem(int position) {
+        return alarmObjectRealmResults.get(position);
     }
 
     @Override
     public void refresh() {
+        LogUtil.print(TAG, "in refresh");
+        LogUtil.print(TAG, "data count : " + alarmObjectRealmResults.size());
         notifyDataSetChanged();
     }
 
@@ -77,7 +90,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public void setOnItemClickListener(OnItemClickListener onRecyclerItemClickListener) {
-
+        setItemClickListener(onRecyclerItemClickListener);
     }
 
     public void setItemStateChangeListener(OnItemStateChangeListener mItemStateChangeListener) {
@@ -99,13 +112,26 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         public void bindView(int position) {
             mTxtTime.setText(getFullTime(position));
+
+            itemView.setOnClickListener((view) -> mItemClickListener.onItemClick(AlarmAdapter.this, position));
         }
 
         String getFullTime(int position) {
+
+            AlarmObject alarmObject = alarmObjectRealmResults.get(position);
+
+            int hour = isPM(alarmObject) ? (alarmObject.getHour() - 12) : alarmObject.getHour();
+
             return new StringBuilder(
-                    mAlarmList.get(position).getHour() + "")
+                    hour + "")
                     .append(" : ")
-                    .append(mAlarmList.get(position).getMin()).toString();
+                    .append(alarmObject.getMin())
+                    .append(isPM(alarmObject) ? " PM" : " AM").toString();
+
+        }
+
+        private boolean isPM(AlarmObject alarmObject) {
+            return alarmObject.getHour() > 12;
         }
     }
 }

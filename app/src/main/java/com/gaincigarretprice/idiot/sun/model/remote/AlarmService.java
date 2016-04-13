@@ -1,5 +1,6 @@
 package com.gaincigarretprice.idiot.sun.model.remote;
 
+import com.gaincigarretprice.idiot.sun.model.data.Alarm;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.model.data.dto.ResultDTO;
 
@@ -34,5 +35,9 @@ public class AlarmService {
         Observable<ResultDTO<List<AlarmDTO>>> getAlarmsByUserId(
                 @Path("userId") int userId
         );
+    }
+
+    public Alarm getAlarmInfo(int alarmId) {
+        return new Alarm();
     }
 }
