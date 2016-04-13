@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
+import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.presenter.AlarmPresenter;
 import com.gaincigarretprice.idiot.sun.util.Constant;
 import com.gaincigarretprice.idiot.sun.view.adapter.AlarmAdapter;

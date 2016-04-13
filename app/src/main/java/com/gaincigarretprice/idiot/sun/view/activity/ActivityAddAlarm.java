@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import com.gaincigarretprice.idiot.djlibrary.util.AlarmUtil;
+import com.gaincigarretprice.idiot.sun.R;
 import com.gaincigarretprice.idiot.sun.model.data.dto.AlarmDTO;
 import com.gaincigarretprice.idiot.sun.service.AlarmReceiveService;
 import com.gaincigarretprice.idiot.sun.util.Constant;
