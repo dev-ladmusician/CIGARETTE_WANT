@@ -76,7 +76,6 @@ public class ActivityAddAlarm extends BaseActivity {
                 .build()
                 .inject(this);
 
-
         init();
 
         int alarmId = getIntent().getIntExtra(Alarm.ALARM_ID, -1);
@@ -92,7 +91,6 @@ public class ActivityAddAlarm extends BaseActivity {
 
 
     private void bindExistAlarmData(@Nullable AlarmObject alarmObject) {
-
         if (null == alarmObject) {
             LogUtil.print(TAG, "Error case : Get edit target Alarm fail");
             return;
@@ -255,7 +253,7 @@ public class ActivityAddAlarm extends BaseActivity {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         AlarmObject alarmObject = realm.createObject(AlarmObject.class);
-        alarmObject.set_alarmid(getId());
+        alarmObject.set_alarmid(getLastRealmId());
         alarmObject.setHour(mAlarm.getHour());
         alarmObject.setMin(mAlarm.getMin());
         alarmObject.setSun(mAlarm.isSun());
@@ -302,7 +300,7 @@ public class ActivityAddAlarm extends BaseActivity {
     }
 
 
-    private int getId() {
+    private int getLastRealmId() {
         Realm realm = Realm.getDefaultInstance();
         return realm.where(AlarmObject.class).max("_alarmid").intValue() + 1;
     }
